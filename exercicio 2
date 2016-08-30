@@ -1,0 +1,47 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct funcionario{
+	char nome[60];
+	char cargo[60];
+	int registro;
+}; 
+void criaFuncionario();
+typedef struct funcionario func;
+func *inicio=NULL, *atual, *aux;
+
+void criaFuncionario(){
+	_flushall();
+	if(inicio ==NULL){
+		inicio= (func*)malloc(sizeof(func));
+		inicio->prox=NULL;
+		aux=inicio;
+		printf("Nome:\n");
+		gets(inicio->nome);
+		printf("Cargo:\n");
+		gets(inicio->cargo);
+		inicio->registro = 1;
+	} else{
+		atual= (func*)malloc(sizeof(func));
+		atual->prox=NULL;
+		aux->prox=atual;
+		atux=atual;
+		printf("Nome:\n");
+		gets(atual->nome);
+		printf("Cargo:\n");
+		gets(atual->cargo);
+		atual->registro = proximoRegistro(atual->registro);
+	}
+}
+
+int main(int argc, char const *argv[]){
+	char resp = 's';
+	return 0;
+}
+
+void mostrarFuncionarios(){
+	func f* = inicio;
+	while(f!= NULL){
+		printf("Funcionario: %s \t Cargo: %s \t Registro: %d \n",f->nome, f->cargo, f->registro);
+		
+	}
+}
