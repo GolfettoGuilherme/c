@@ -1,47 +1,154 @@
 #include<stdio.h>
 #include<stdlib.h>
 struct funcionario{
-	char nome[60];
-	char cargo[60];
-	int registro;
-}; 
+  char nome[60];
+  char cargo[60];
+  int registro;
+  struct funcionario *prox;
+};
 void criaFuncionario();
+void exibe();
 typedef struct funcionario func;
-func *inicio=NULL, *atual, *aux;
+func *inicio=NULL,*atual,*aux;
 
-void criaFuncionario(){
-	_flushall();
-	if(inicio ==NULL){
-		inicio= (func*)malloc(sizeof(func));
-		inicio->prox=NULL;
-		aux=inicio;
-		printf("Nome:\n");
-		gets(inicio->nome);
-		printf("Cargo:\n");
-		gets(inicio->cargo);
-		inicio->registro = 1;
-	} else{
-		atual= (func*)malloc(sizeof(func));
-		atual->prox=NULL;
-		aux->prox=atual;
-		atux=atual;
-		printf("Nome:\n");
-		gets(atual->nome);
-		printf("Cargo:\n");
-		gets(atual->cargo);
-		atual->registro = proximoRegistro(atual->registro);
-	}
+void limpaTela() {
+  system("cls");
 }
 
-int main(int argc, char const *argv[]){
-	char resp = 's';
-	return 0;
+void exibe(){
+  func *f=inicio;
+  while(f!=NULL){
+    printf("nome: %s \t Cargo: %s \t Registro: %d \n",f->nome,f->cargo,f->registro);
+    f=f->prox;
+  }
+  system("pause");
 }
 
-void mostrarFuncionarios(){
-	func f* = inicio;
-	while(f!= NULL){
-		printf("Funcionario: %s \t Cargo: %s \t Registro: %d \n",f->nome, f->cargo, f->registro);
-		
-	}
+void cadastrarFuncionarios(){
+  int i = 1;
+  char resp='s';
+  while(1){
+    if(resp=='s'){
+      criaFuncionario(i);
+      _flushall();
+      printf("Deseja continuar (s/n)\n");
+      scanf("%c",&resp);
+    } else{
+      break;
+    }
+    i++;
+  }
+}
+
+ 
+void arquivarFuncionarios(){
+  func *f = inicio;
+  FILE *arq;
+  int i;
+  arq=fopen("funcionarios.txt","w");
+  while(f != NULL){
+    fprintf(arq,"Nome: %s \t", f->nome);
+    fprintf(arq,"Cargo %s \t",f->cargo);
+    fprintf(arq,"Registro: %d \n",f->registro);
+    f=f->prox;
+  }
+  limpaTela();
+  printf("Arquivo Salvo com sucesso");
+  getchar();
+  fclose(arq);
+}
+
+void contar(){
+  func *f = inicio;
+  int x = 0;
+  while(f!=NULL){
+    x++;
+    f=f->prox;
+  }
+  printf("Foram registrados %d funcionarios \n", x);
+  system("pause");
+}
+
+
+void criaFuncionario(int i){
+  _flushall();
+  if(inicio==NULL){
+    inicio=(func *)malloc(sizeof(func));
+    inicio->prox=NULL;
+    aux=inicio;
+    printf("Nome:");
+    gets(inicio->nome);
+    printf("Cargo:");
+    gets(inicio->cargo);
+    inicio->registro = 1;
+  } else{
+    atual=(func*)malloc(sizeof(func));
+    atual->prox=NULL;
+    aux->prox=atual;
+    aux=atual;
+    printf("nome:");
+    gets(atual->nome);
+    printf("Cargo:");
+    gets(atual->cargo);
+    atual->registro = i;
+  }
+}
+
+void buscarFuncionarios(){
+  int registro;
+  printf("Digite o registro do funcionario a ser buscado:");
+  scanf("%d",&registro);
+  func *f=inicio;
+  while(f!=NULL){
+    if(f->registro == registro) {
+      printf("Funcionario encontrado ! \n");
+      printf("Nome: %s \n",  f->nome);
+      printf("Cargo %s \n",  f->cargo);
+      printf("Registro: %d", f->registro);
+      system("pause");
+    }
+    f=f->prox;
+  }
+}
+
+main(){
+  int chamada;
+  for( ; ; ){
+    limpaTela();
+    printf("Menu: \n");
+    printf("1) Cadastrar Funcionarios\n");
+    printf("2) Listar Funcionarios\n");
+    printf("3) Contar Funcionarios\n");
+    printf("4) Buscar Funcionarios cadastrados\n");
+    printf("5) Arquivar Funcionarios cadastrados\n");
+    printf("0) Sair\n");
+    printf("Resposta:");
+    scanf("%d",&chamada);
+    if(chamada == 0){
+      puts("Saindo do programa...");
+      break;
+    }
+    switch(chamada){
+      case 1:
+        limpaTela();
+        cadastrarFuncionarios();
+      break;
+      case 2:
+        limpaTela();
+        exibe();
+      break;
+      case 3:
+        limpaTela();
+        contar();
+      break;
+      case 4:
+        limpaTela();
+        buscarFuncionarios();
+      break;
+      case 5:
+        limpaTela();
+        arquivarFuncionarios();
+      break;
+    }
+  }
 }
