@@ -6,7 +6,7 @@ struct funcionario{
   int registro;
   struct funcionario *prox;
 };
-void criaFuncionario();
+void criaFuncionario(int i);
 void exibe();
 typedef struct funcionario func;
 func *inicio=NULL,*atual,*aux;
@@ -53,9 +53,9 @@ void arquivarFuncionarios(){
     f=f->prox;
   }
   limpaTela();
-  printf("Arquivo Salvo com sucesso");
-  getchar();
   fclose(arq);
+  printf("Arquivo Salvo com sucesso");
+  system("pause");
 }
 
 void contar(){
