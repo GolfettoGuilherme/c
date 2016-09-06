@@ -1,0 +1,194 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<locale.h>
+struct funcionario{
+   char nome[60],cargo[80];
+   int registro;
+   struct funcionario *prox;
+   double salario;
+};
+void busca(int rb);
+void criaCelula();
+void exibir();
+void remover(int rb);
+void calcularAumento(int rb,float aliq); 
+int quant();
+void gravar();
+typedef struct funcionario reg;
+reg *inicio=NULL,*atual,*aux;
+int rb,r=1;
+float aliq;
+
+void criaCelula(){
+   _flushall();
+   if(inicio==NULL){
+      inicio=(reg *)malloc(sizeof(reg));
+      inicio->prox=NULL;
+      aux=inicio;
+      printf("Nome:");
+      gets(inicio->nome);
+      printf("Cargo:");
+      scanf("%s",&inicio->cargo);
+      _flushall();
+      printf("Salario:");
+      scanf("%f",&inicio->salario);
+      inicio->registro=r++;
+   } else{
+	   atual=( reg*)malloc(sizeof(reg));
+	   atual->prox=NULL;
+	   aux->prox=atual;
+	   aux=atual;
+	   printf("Nome:");
+	   gets(atual->nome);
+	   printf("Cargo:");
+	   scanf("%s",&atual->cargo);
+	   _flushall();
+	   printf("Salario:");
+	   scanf("%f",&atual->salario);
+	   atual->registro=r++;
+	}
+}
+
+main(){
+  setlocale(0,"");
+  char resp='s';
+  int opc;
+  while(1){
+  	 system("cls");
+  	 printf("\t\tMENU\n");
+  	 printf("[1] - Cadastrar\n[2] - Exibir toda a base de dados\n[3] - Quantidade de cadastros\n[4] - Pesquisar por registro\n");
+  	 printf("[5] - Remover um cadastro\n[6] - Gravar\n[7] - Aumentar Salario\n[8] - Sair\n");
+  	 printf("\nDigite a opção<< ");
+  	 scanf("%d",&opc);
+  	 switch(opc){
+  	 	
+       case 1: 
+	   		criaCelula();
+            break;
+     
+	   case 2: 
+	   		exibir();
+	        break;
+	        
+	   case 3: 
+	   		printf("Cadastros realizados: %d\n",quant());
+	        break;
+	           
+	   case 4: 
+	   		printf("Digite o registro para a busca: ");
+	        scanf("%d",&rb);
+	        busca(rb);
+	        break;
+        
+       case 5: 
+	   		printf("Digite o registro para a remover: ");
+            scanf("%d",&rb);
+    		remover(rb);
+	        break;
+               
+       case 6: 
+	   		gravar();     
+            break;
+            
+        case 7: 
+        	printf("Digite o registro para o reajuste: ");
+            scanf("%d",&rb);
+            printf("Digite a aliquota: ");
+            scanf("%f",&aliq);
+   			calcularAumento(rb, aliq); 
+        	break;
+               
+       case 8: 
+	   		exit(0); 
+	        break;
+	           
+	   default: printf("Opção inválida!\n");
+
+  }
+  system("pause");
+ }
+}
+
+void exibir(){
+	reg *e=inicio;
+	while(e!=NULL){
+		printf("Funcionário: %s\n",e->nome);
+		printf("Cargo: %s\n",e->cargo);
+		printf("Registro: %d\n",e->registro);
+		e=e->prox;
+	}
+}
+
+void busca(int rb){
+	reg *b=inicio;
+	while(b!=NULL && b->registro!=rb){
+		b=b->prox;
+	}
+	if(b!=NULL){
+		printf("Funcionário: %s\n",b->nome);
+		printf("Cargo: %s\n",b->cargo);
+		printf("Registro: %d\n",b->registro);
+	}else{
+		printf("Nao encontrou!\n");
+	}
+}
+
+int quant(){
+	reg *q=inicio;
+	int cont=0;
+	while(q!=NULL){
+		cont++;
+		q=q->prox;
+	}
+	return cont;
+}
+
+
+
+void gravar(){
+	FILE *arq;
+	if((arq=fopen("CADASTRO.txt","a"))==NULL)
+		printf("Arquivo não pode ser aberto!\n");
+	reg *g=inicio;
+	while(g!=NULL){
+		fprintf(arq,"Funcionário: %s\n",g->nome);
+		fprintf(arq,"Cargo: %s\n",g->cargo);
+		fprintf(arq,"Registro: %d\n",g->registro);
+		g=g->prox;
+	}
+	printf("Cadastros gravados com sucesso!\n");
+	fclose(arq);
+}
+
+void remover(int rb){
+  	reg *aux2,*lixo=inicio;
+	while(lixo!=NULL && lixo->registro!=rb){
+		aux2=lixo;
+		lixo=lixo->prox;
+	}	 
+	if(lixo==NULL)
+		printf("Não encontrou!\n");
+	else if(lixo==inicio){
+	    inicio=inicio->prox;
+	    free(lixo);
+   }else if(lixo==aux){
+        aux=aux2;
+        aux->prox=NULL;
+        free(lixo); 
+    }else{
+  	    aux2->prox=lixo->prox;
+        free(lixo);  
+	}
+}
+void calcularAumento(int rb,float aliq){
+	reg *b=inicio;
+	double sal;
+	while(b!=NULL && b->registro!=rb){
+		b=b->prox;
+	}
+	if(b!=NULL){
+		sal = b->salario + b->salario * (aliq /100);
+		b->salario = b->salario + sal;
+	}
+	printf("Foi ajusta o salario para %f",sal);
+}
