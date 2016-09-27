@@ -51,9 +51,30 @@
 	celulas como um novo tipo de dado.
 	vetor: é uma estrutura de dados  que pode armazenar uma determinada quantidade de valores do mesmo tipo.
 
+18)
 
+	struct lista *inicio;
+	
+	int inserirPrimeiro (int num);
+	struct lista *a = (strct lista*) malloc(sizeof(struct lista));
+	if(inicio == NULL){
+		inicio->prox = a;
+		a->w = num;
+		a->prox = NULL;
+	}
+	
+19)	
+	void exibirNo(){
+		struct lista *list = inicio;
+		while(list!= NULL){
+			printf("%d\t",list->w);
+			list=list->prox;
+		}
+	}
 	  
-	  
+20)
+	Semelhante ao ponteiro: Coluna Proximo
+	Semelhante ao endereço de memoria: Coluna orde de atividade
 	  
 	  
 	  
