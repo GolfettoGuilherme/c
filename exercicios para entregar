@@ -1,0 +1,60 @@
+4)
+	s2=*s1; irá acusar um erro de compilação, pois, para 
+	igualar um ponteiro a outro, deve-se usar o seguinte comando:
+		s2 = s1
+	
+5) 
+	nas duas primeiras situações, temos um campo de um 
+	registro sendo atribuido valores.
+ 
+6)
+	typedef struct letra v;
+		"nomeia" a struct letra com o nome de 'v'
+
+	v *s1, *s2;
+		cria 2 ponteiros do tipo v (letra)
+		
+	s1=(v *)malloc(sizeof(v));
+		É alocado em s1 um conjunto de memoria do tamanho de v (letra)
+
+	s1->n='a';	
+		é atribuido no campo n do registro s1 o caractere 'a'
+		
+	s2=s1;
+		o ponteiro s2 recebe o endereço de memoria de s1
+		
+	s1=(v *)malloc(sizeof(v));
+		É alocado em s1 um conjunto de memoria do tamanho de v (letra)
+		
+	s1->n='b';
+		é atribuido no campo n do registro s1 o caractere 'b'
+
+
+12)
+	Está alocando dinamicamente os valores de a e b em *p1 e *p2 respectivamente.
+	
+13)
+	A) Ponteiro é uma variavel que armazena o endereço de memoria.
+	B) a variavel p1 recebe o endereço de memoria de a.
+	C) o * serve para declarar um ponteiro e o &está informando o endereço de uma variavel.
+	D) alocaçao estatica os dados tem um tamanho fixo e organizados sequencialmente na memoria.
+		EX: Variaveis globais e arrays
+		Alocaçao dinamica dados nao possuem valores fixos, podendo definir para cada dado o tamanho de memoria desejado.
+		EX: Malloc
+	E)na primeira o malloc é utilizado apenas para uma posiçao, na segunda opçao é utilizado 5 vezes.	
+	f)
+		continuidade fisica = por exemplo, ao iniciar um vetor, na memoria salvamos sequencialmente os endereços dos campos seguintes.
+		continuidade logica = usamos uma indicação o proximo valor, não necessáriamente precisa ser o proximo físicamente da memoria.
+		
+16)
+	lista encadeada: é uma sequencia de celulas com estruturas que podem armazenar diversas informações sendo conveniente tratar essas
+	celulas como um novo tipo de dado.
+	vetor: é uma estrutura de dados  que pode armazenar uma determinada quantidade de valores do mesmo tipo.
+
+
+	  
+	  
+	  
+	  
+	  
+	  
