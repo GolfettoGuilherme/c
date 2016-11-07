@@ -1,4 +1,5 @@
 /*
+tinyurl.com/mbkpwpl
 Este algoritmo simula as operações em uma ÁRVORE BINÁRIA. 
 As operações são: 
 inserção
