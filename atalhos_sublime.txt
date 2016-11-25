@@ -1,0 +1,19 @@
+[
+	{ "keys": ["alt+enter"], "command": "find_under_expand" },
+	{ "keys": ["alt+shift+enter"], "command": "find_all_under" },
+	
+	{ "keys": ["ctrl+d"], "command": "duplicate_line" },
+	{ "keys": ["ctrl+shift+d"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Delete Line.sublime-macro"} },
+
+	{ "keys": ["alt+up"], "command": "swap_line_up" },
+	{ "keys": ["alt+down"], "command": "swap_line_down" },
+
+	{ "keys": ["alt+shift+up"], "command": "select_lines", "args": {"forward": false} },
+	{ "keys": ["alt+shift+down"], "command": "select_lines", "args": {"forward": true} },
+
+	// THE MOST AMAZING SHORTCUT EVER!
+	{"keys": ["ctrl+alt+f"], "command": "reindent", "args": {"single_line": false}},
+
+	// special for plainTask plugin
+	{ "keys": ["alt+d"], "command": "plain_tasks_complete","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
+]
